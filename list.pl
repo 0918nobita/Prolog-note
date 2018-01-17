@@ -1,5 +1,7 @@
 % リスト操作
 
+:- initialization(main, main).
+
 % 先頭要素を取得する
 car([Car|_], Car).
 
@@ -25,4 +27,6 @@ retrieve([_|Cdr], N, X) :-　N > 1,　N1 is N - 1,　retrieve(Cdr, N1, X).
 
 % nth1(?N, ?List, ?Elem, ?Rest)
 % nth0と同様だが、カウントが1から始まる。
+
+main :- cons(1, [2], X), writeln(X).
 

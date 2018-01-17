@@ -28,5 +28,20 @@ retrieve([_|Cdr], N, X) :-　N > 1,　N1 is N - 1,　retrieve(Cdr, N1, X).
 % nth1(?N, ?List, ?Elem, ?Rest)
 % nth0と同様だが、カウントが1から始まる。
 
-main :- cons(1, [2], X), writeln(X).
+% main :- cons(1, [2], X), writeln(X). % => [1, 2]
+% main :- loop(2, writeln(334)).       % => 334\n334
+
+main :- mul(2, 3, X), writeln(X),    % => 6
+		mul(2, Y, 6), writeln(Y),      % => 3.0
+		mul(Z, 3, 6), writeln(Z).      % => 2.0
+
+
+% 節 Clause を指定した回数呼び出す
+loop(1, Clause) :- Clause.
+loop(N, Clause) :- N > 1, N1 is N - 1, Clause, loop(N1, Clause).
+
+% 整数A, BはCである ( そのうち変数は1つまで許容 )
+mul(A, B, C) :- var(C), integer(A), integer(B), C is A * B.
+mul(A, B, C) :- var(A), integer(B), integer(C), A is C / float(B).
+mul(A, B, C) :- var(B), integer(A), integer(C), B is C / float(A).
 
